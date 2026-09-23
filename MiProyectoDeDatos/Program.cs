@@ -100,3 +100,4 @@ public class Venta
     public Vendedor Vendedor;
     public List<Producto> ListaDeProductos;
 }
+
