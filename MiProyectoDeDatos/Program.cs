@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+using MiProyectoDeDatos.Models;
 Console.WriteLine("Hello, World!");
 
 Producto producto1 = new Producto();
@@ -37,13 +37,24 @@ var venta1 = new Venta
     Fecha = DateTime.Now,
     Vendedor = vendedor1,
 };
-venta1.ListaDeProductos = new List<VentaProducto>
+
 
 
 var venta2 = new Venta
 {
     Fecha = DateTime.Now,
     Vendedor = vendedor2,
+};
+venta1.ListaDeProductos = new List<VentaProducto>
+{
+    new VentaProducto
+    {
+        Venta = venta1,
+        Producto = producto1,
+        Cantidad = 2,
+        Subtotal = 2 * producto2.PrecioDeVenta
+    };
+
 };
 venta2.ListaDeProductos = new List<VentaProducto>
 {
@@ -53,47 +64,5 @@ venta2.ListaDeProductos = new List<VentaProducto>
         Producto = producto2,
         Cantidad = 1,
         Subtotal = producto2.PrecioDeVenta * 1
-    }
-};
-{
-    new VentaProducto
-    {
-        Venta = venta1,
-        Producto = producto1,
-        Cantidad = 2,
-        Subtotal = 2 * producto2.PrecioDeVenta
     };
 };
-
-public class Producto
-{
-    public int Id;
-    public string Nombre = "";
-    public decimal PrecioDeCompra;
-    public decimal PrecioDeVenta;
-}
-
-public class Vendedor
-{
-    public int Id;
-    public string Nombres = "";
-    public string Apellidos = "";
-}
-
-public class Venta
-{
-    public int Id;
-    public DateTime Fecha;
-    public Vendedor Vendedor;
-    public List<VentaProducto> ListaDeProductos;
-}
-
-
-public class VentaProducto
-{
-    public Venta Venta;
-    public Producto Producto;
-    public int Cantidad;
-
-    public decimal Subtotal;
-}

@@ -1,5 +1,5 @@
-namespace MiProyectoDeDatos.Models
-{
+namespace MiProyectoDeDatos.Models;
+
     public class Venta
     {
         public int Id;
@@ -7,4 +7,3 @@ namespace MiProyectoDeDatos.Models
         public Vendedor Vendedor;
         public List<Producto> ListaDeProductos;
     }
-}
