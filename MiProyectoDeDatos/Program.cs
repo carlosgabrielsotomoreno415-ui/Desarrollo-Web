@@ -1,5 +1,6 @@
-﻿using System.Security.Authentication;
-using System.Security.Cryptography.X509Certificates;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 Console.WriteLine("Hello, World!");
 
@@ -27,57 +28,42 @@ foreach (var producto in listadeProductos)
 }
 
 //crear un vendedor
-var vendedor1 = new Vendedor {Nombres = "Jesus", Apellidos = "Urias"};
+var vendedor1 = new Vendedor { Nombres = "Jesus", Apellidos = "Urias" };
+var vendedor2 = new Vendedor { Nombres = "Juan", Apellidos = "Perez" };
 
 //crear una venta de los productos antes creados
 var venta1 = new Venta
 {
     Fecha = DateTime.Now,
     Vendedor = vendedor1,
-    ListaDeProductos = listadeProductos
 };
+venta1.ListaDeProductos = new List<VentaProducto>
 
 
-// Parte 1
-
-
-// Crear al menos dos vendedores diferentes
-var vendedor2 = new Vendedor { Nombres = "Maria", Apellidos = "Gomez" };
-
-// Crear productos adicionales para completar las distintas ventas
-var producto3 = new Producto { Nombre = "Carlos V", PrecioDeCompra = 10m, PrecioDeVenta = 20m };
-var producto4 = new Producto { Nombre = "Galletas Emperador", PrecioDeCompra = 12m, PrecioDeVenta = 18.5m };
-
-// Declarar al menos tres ventas con dos o más productos cada una y repartidas entre los vendedores
 var venta2 = new Venta
 {
-    Fecha = DateTime.Now.AddDays(-1),
-    Vendedor = vendedor1,
-    ListaDeProductos = new List<Producto> { producto2, producto3 }
-};
-
-var venta3 = new Venta
-{
-    Fecha = DateTime.Now.AddDays(-2),
+    Fecha = DateTime.Now,
     Vendedor = vendedor2,
-    ListaDeProductos = new List<Producto> { producto1, producto3, producto4 }
 };
-
-// Crear lista global de ventas
-var listaDeVentas = new List<Venta> { venta1, venta2, venta3 };
-
-// Recorrer la lista de ventas e imprimir información requerida
-Console.WriteLine("\n--- RESUMEN DE VENTAS ---");
-foreach (var venta in listaDeVentas)
+venta2.ListaDeProductos = new List<VentaProducto>
 {
-    Console.WriteLine($"\nVendedor: {venta.Vendedor.Nombres} {venta.Vendedor.Apellidos}");
-    Console.WriteLine($"Fecha: {venta.Fecha}");
-    Console.WriteLine("Productos:");
-    foreach (var prod in venta.ListaDeProductos)
+    new VentaProducto
     {
-        Console.WriteLine($" - {prod.Nombre}: ${prod.PrecioDeVenta}");
+        Venta = venta2,
+        Producto = producto2,
+        Cantidad = 1,
+        Subtotal = producto2.PrecioDeVenta * 1
     }
-}
+};
+{
+    new VentaProducto
+    {
+        Venta = venta1,
+        Producto = producto1,
+        Cantidad = 2,
+        Subtotal = 2 * producto2.PrecioDeVenta
+    };
+};
 
 public class Producto
 {
@@ -86,6 +72,7 @@ public class Producto
     public decimal PrecioDeCompra;
     public decimal PrecioDeVenta;
 }
+
 public class Vendedor
 {
     public int Id;
@@ -98,6 +85,15 @@ public class Venta
     public int Id;
     public DateTime Fecha;
     public Vendedor Vendedor;
-    public List<Producto> ListaDeProductos;
+    public List<VentaProducto> ListaDeProductos;
 }
 
+
+public class VentaProducto
+{
+    public Venta Venta;
+    public Producto Producto;
+    public int Cantidad;
+
+    public decimal Subtotal;
+}
