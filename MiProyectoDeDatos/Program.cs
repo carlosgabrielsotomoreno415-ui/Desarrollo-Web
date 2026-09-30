@@ -37,14 +37,6 @@ var venta1 = new Venta
     Fecha = DateTime.Now,
     Vendedor = vendedor1,
 };
-
-
-
-var venta2 = new Venta
-{
-    Fecha = DateTime.Now,
-    Vendedor = vendedor2,
-};
 venta1.ListaDeProductos = new List<VentaProducto>
 {
     new VentaProducto
@@ -52,9 +44,14 @@ venta1.ListaDeProductos = new List<VentaProducto>
         Venta = venta1,
         Producto = producto1,
         Cantidad = 2,
-        Subtotal = 2 * producto2.PrecioDeVenta
-    };
+        Subtotal = 2 * producto1.PrecioDeVenta
+    }
 
+};
+var venta2 = new Venta
+{
+    Fecha = DateTime.Now,
+    Vendedor = vendedor2,
 };
 venta2.ListaDeProductos = new List<VentaProducto>
 {
@@ -63,6 +60,6 @@ venta2.ListaDeProductos = new List<VentaProducto>
         Venta = venta2,
         Producto = producto2,
         Cantidad = 1,
-        Subtotal = producto2.PrecioDeVenta * 1
-    };
+        Subtotal = 1 * producto2.PrecioDeVenta
+    }
 };
