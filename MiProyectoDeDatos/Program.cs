@@ -63,3 +63,59 @@ venta2.ListaDeProductos = new List<VentaProducto>
         Subtotal = 1 * producto2.PrecioDeVenta
     }
 };
+
+venta1.ImprimirTicket();
+
+//EJERCICIO LINQ
+var alumnos = new List<Alumno>
+{
+    new Alumno {Nombre="Ana", Materia="Programacion", Calificacion=95},
+    new Alumno {Nombre="Luis", Materia="Programacion", Calificacion=52},
+    new Alumno {Nombre="Sofia", Materia="Base de Datos", Calificacion=88},
+    new Alumno {Nombre="Ivan", Materia="Base de Datos", Calificacion=70},
+};
+
+//var aprobados = new List<Alumno>();
+//foreach (var a in alumnos)
+//{
+    //if (a.Calificacion >= 70)
+   // {
+   //    aprobados.Add(a);
+   // }
+//}
+//LINQ: FILTRAR (where)
+var aprobados = alumnos.Where(a => a.Calificacion >= 70);
+//SELECT * FROM alumnos WHERE Calificacion >= 70;
+
+//LINQ: Transformar (Select)
+var nombres = alumnos.Select(a => a.Nombre);
+//SELECT Nombre FROM alumnos;
+
+//obtener los nombres de los alumnos aprobados
+var nombresAprobados = alumnos
+    .Where(a => a.Calificacion >= 70)
+    .Select(a => a.Nombre);
+
+//LINQ: Count, Sum, Average
+int total = alumnos.Count();
+int aprobadosN = alumnos.Count(a => a.Calificacion >= 70);
+double promedio = (double)alumnos.Average(a => a.Calificacion);
+double sumatoria = (double)alumnos.Sum(a => a.Calificacion);
+
+//LINQ Orderby
+var ordenados = alumnos
+    .OrderBy(a => a.Calificacion)
+    .ThenBy(a => a.Nombre);
+
+//LINQ: GroupBy
+var porMateria = alumnos
+    .GroupBy(a => a.Materia)
+    .Select(grupo => new
+    {
+        Materia = grupo.Key,
+        Promedio = grupo.Average(g => g.Calificacion),
+        Cantidad = grupo.Count()
+    });
+
+//SELECT Materia, Average(Calificacion) Promedio, Count(Nombre) Total 
+// FROM alumnos GROUP BY Materia;
